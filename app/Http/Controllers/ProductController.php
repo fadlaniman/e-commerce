@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -12,12 +13,18 @@ class ProductController extends Controller
     public function index(): View
     {
         $products = Product::all();
-        return view('products', compact('products'));
+        return view('pages.products', compact('products'));
     }
+    public function create(): View
+    {
+        $categories = Category::all();
+        return view('pages.products.create', compact('categories'));
+    }
+
     public function show(int $id): View
     {
         $product = Product::findOrFail($id);
-        return view('products', compact('product'));
+        return view('pages.products', compact('product'));
     }
     public function store(Request $request): RedirectResponse
     {
